@@ -36,10 +36,10 @@ public class PlaCollision : MonoBehaviour
 
     void ClimbingPoint(RaycastHit hit)
     {
-        Vector3 climbPos = (hit.transform.position - hit.point);
+        int dirMulti = 0;
+
         float climbPoint = (hit.transform.position - hit.point).magnitude / hit.transform.localScale.x;
 
-        int dirMulti = 0;
         float dotValue = Vector3.Dot(hit.transform.right, hit.point - hit.transform.position);
         if (dotValue > 0)
             dirMulti = 1;
@@ -49,8 +49,6 @@ public class PlaCollision : MonoBehaviour
             dirMulti = 0;
 
         hit.transform.GetChild(0).localPosition = new Vector3(climbPoint * dirMulti, hit.transform.GetChild(0).localPosition.y, hit.transform.GetChild(0).localPosition.z);
-
-
 
     }
 
