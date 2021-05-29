@@ -16,11 +16,11 @@ GameObject:
   - component: {fileID: 9196831106563320355}
   m_Layer: 0
   m_Name: EnemyAI
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9196831106563320354
 Transform:
   m_ObjectHideFlags: 0
@@ -127,7 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586378e4d305f6549846d62dc3a10c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 250
+  jumpDistance: 4
+  jumpHeight: 12
 --- !u!1 &9196831107945822705
 GameObject:
   m_ObjectHideFlags: 0

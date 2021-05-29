@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     public List<GameObject> activeEnemies;
+    public GameObject attacker;
 
 
     public void LedgeClimb()
@@ -89,11 +90,16 @@ public class GameLogic : MonoBehaviour
         GameManager.acc.PMng.Move.ClimbMove(GameManager.acc.PMng.rb, GameManager.acc.Inp.MovementInput().x, GameManager.acc.PMng.Climb.curLedge);
     }
 
+    public void WhileAttacked()
+    {
+        GameManager.acc.PMng.Cam.cam.LookAt(attacker.transform);
+    }
+
     public void MoveActiveEnemies(Transform player)
     {
         for (int i = 0; i < activeEnemies.Count; i++)
         {
-            activeEnemies[i].GetComponent<EnemyMove>().MoveTo(player.position);
+            activeEnemies[i].GetComponent<EnemyMove>().MoveTo(player);
         }
     }
 }

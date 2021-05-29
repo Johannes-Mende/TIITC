@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum plaState {moving, climbing, inInv }
+public enum plaState {moving, climbing, inInv, attacked, trapped }
 public class GameManager : MonoBehaviour
 {
     public static GameManager acc;
@@ -42,27 +42,46 @@ public class GameManager : MonoBehaviour
 
         Debug.Log(curState);
 
-        if(curState == plaState.moving)
+        switch (curState)
         {
-            GL.WhileMoving();
-        }
-        else if(curState == plaState.climbing)
-        {
-            GL.WhileClimbing();
-        }
+            case plaState.moving:
+                GL.WhileMoving();
+                break;
 
+            case plaState.climbing:
+                GL.WhileClimbing();
+                break;
 
+            case plaState.inInv:
+                break;
+
+            case plaState.attacked:
+                GL.WhileAttacked();
+                break;
+
+            case plaState.trapped:
+                break;
+        }
     }
 
     void FixedUpdate()
     {
-        if (curState == plaState.moving)
+        switch (curState)
         {
-            GL.FixedWhileMoving();
-        }
-        else if (curState == plaState.climbing)
-        {
-            GL.FixedWhileClimbing();
+            case plaState.moving:
+                GL.FixedWhileMoving();
+                break;
+            case plaState.climbing:
+                GL.FixedWhileClimbing();
+                break;
+            case plaState.inInv:
+                break;
+            case plaState.attacked:
+                break;
+            case plaState.trapped:
+                break;
+            default:
+                break;
         }
 
         // Move Enemies
