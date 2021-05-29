@@ -73,4 +73,23 @@ public class UIManage : MonoBehaviour
 
         map.GetComponent<RectTransform>().localScale = Vector3.zero;
     }
+
+    public void UIManager()
+    {
+        if (GameManager.acc.Inp.LetterInput() == "I")
+        {
+            if (GameManager.acc.curState != plaState.inInv)
+                GameManager.acc.stateBeforeInv = GameManager.acc.curState;
+            StartCoroutine("HandelMap", false);
+            InvVisibility();
+        }
+
+        // Close Map
+        if (mapOpened)
+            if (GameManager.acc.Inp.EscInput())
+            {
+                StartCoroutine("HandelMap", false);
+            }
+
+    }
 }
