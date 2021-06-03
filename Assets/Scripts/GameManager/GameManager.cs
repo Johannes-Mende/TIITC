@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public PlaManage PMng;
     public UIManage UIMng;
     public GameLogic GL;
-    public SceneManager SM;
 
     public plaState curState;
     public plaState stateBeforeInv;
