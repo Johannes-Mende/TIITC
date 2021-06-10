@@ -97,9 +97,13 @@ public class GameLogic : MonoBehaviour
 
     public void MoveActiveEnemies(Transform player)
     {
-        for (int i = 0; i < activeEnemies.Count; i++)
+        if(activeEnemies.Count > 0)
         {
-            activeEnemies[i].GetComponent<EnemyMove>().MoveTo(player);
+            for (int i = 0; i < activeEnemies.Count; i++)
+            {
+                activeEnemies[i].GetComponent<EnemyMove>().MoveTo(player);
+            }
         }
+        
     }
 }
