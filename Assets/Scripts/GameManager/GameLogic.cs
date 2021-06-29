@@ -101,7 +101,7 @@ public class GameLogic : MonoBehaviour
         {
             for (int i = 0; i < activeEnemies.Count; i++)
             {
-                activeEnemies[i].GetComponent<EnemyMove>().MoveTo(player);
+                activeEnemies[i].GetComponent<EnemyMove>().PlayerScan(player);
             }
         }
         

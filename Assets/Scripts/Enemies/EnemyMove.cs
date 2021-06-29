@@ -10,6 +10,10 @@ public class EnemyMove : MonoBehaviour
     public float speed;
     public float jumpDistance;
     public float jumpHeight;
+    public float playerScanRadius;
+    public LayerMask player_Msk;
+
+    public bool attacking;
 
     bool jumped;
 
@@ -19,28 +23,36 @@ public class EnemyMove : MonoBehaviour
         path = new NavMeshPath();
     }
 
-    public void MoveTo(Transform target)
+    public void PlayerScan(Transform target)
     {
-        NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
+        if (Physics.CheckSphere(transform.position, playerScanRadius, player_Msk))
+            MoveTo(target);
+    }
 
-        if (path.corners.Length > 0)
+    void MoveTo(Transform target)
+    {
+        if(!attacking)
         {
-            transform.LookAt(new Vector3(path.corners[1].x, transform.position.y, path.corners[1].z));
-            Vector3 moveDir = transform.forward * Time.fixedDeltaTime * speed;
-            rb.velocity = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);
-            Debug.DrawLine(transform.position, path.corners[1]);
+            NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
 
-            if(Vector3.Distance(transform.position, target.position) < jumpDistance && !jumped)
+            if (path.corners.Length > 0)
             {
-                rb.AddForce(new Vector3(0f, jumpHeight, 0f), ForceMode.Impulse);
-                jumped = true;
+                transform.LookAt(new Vector3(path.corners[1].x, transform.position.y, path.corners[1].z));
+                Vector3 moveDir = transform.forward * Time.fixedDeltaTime * speed;
+                rb.velocity = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);
+                Debug.DrawLine(transform.position, path.corners[1]);
 
-                GameManager.acc.curState = plaState.attacked;
-                GameManager.acc.GL.attacker = gameObject;
-                StartCoroutine("ResetJump");
+                if (Vector3.Distance(transform.position, target.position) < jumpDistance && !jumped)
+                {
+                    rb.AddForce(new Vector3(0f, jumpHeight, 0f), ForceMode.Impulse);
+                    jumped = true;
+
+                    GameManager.acc.curState = plaState.attacked;
+                    GameManager.acc.GL.attacker = gameObject;
+                    StartCoroutine("ResetJump");
+                }
             }
         }
-
     }
 
     IEnumerator ResetJump()
@@ -48,5 +60,10 @@ public class EnemyMove : MonoBehaviour
         yield return new WaitForSeconds(3f);
         jumped = false;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, playerScanRadius);
     }
 }
