@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9196831106563320354
 Transform:
   m_ObjectHideFlags: 0
@@ -130,6 +130,11 @@ MonoBehaviour:
   speed: 250
   jumpDistance: 4
   jumpHeight: 12
+  playerScanRadius: 0
+  player_Msk:
+    serializedVersion: 2
+    m_Bits: 0
+  attacking: 0
 --- !u!1 &9196831107945822705
 GameObject:
   m_ObjectHideFlags: 0
